@@ -1,0 +1,141 @@
+# =========================
+
+# PYTHON
+
+# =========================
+
+**pycache**/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+
+venv/
+env/
+ENV/
+
+# =========================
+
+# ENV VARIABLES (CRITICAL)
+
+# =========================
+
+.env
+.env.*
+*.env
+
+# =========================
+
+# LOG FILES
+
+# =========================
+
+*.log
+logs/
+
+# =========================
+
+# DATABASE (LOCAL)
+
+# =========================
+
+*.sqlite3
+*.db
+
+# =========================
+
+# DATA FILES (DVC MANAGED)
+
+# =========================
+
+data/
+*.csv
+*.parquet
+*.feather
+
+# ✅ DVC tracking files (bunlar GIT'e girecek)
+
+!*.dvc
+!dvc.yaml
+!dvc.lock
+
+# ⚠️ Eğer sample CSV commitlenecekse:
+
+!sample_requests.csv
+
+# =========================
+
+# DVC INTERNAL
+
+# =========================
+
+.dvc/cache/
+.dvc/tmp/
+
+# =========================
+
+# MLFLOW
+
+# =========================
+
+mlruns/
+mlartifacts/
+
+# =========================
+
+# DOCKER
+
+# =========================
+
+*.pid
+*.seed
+*.pid.lock
+docker-compose.override.yml
+
+# =========================
+
+# BUILD / DIST
+
+# =========================
+
+build/
+dist/
+*.egg-info/
+
+# =========================
+
+# IDE / EDITOR
+
+# =========================
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+
+# OS FILES
+
+# =========================
+
+.DS_Store
+Thumbs.db
+
+# =========================
+
+# TEST / CACHE
+
+# =========================
+
+.pytest_cache/
+.cache/
+
+# =========================
+
+# COVERAGE
+
+# =========================
+
+.coverage
+htmlcov/
