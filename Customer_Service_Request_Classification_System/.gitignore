@@ -48,7 +48,9 @@ logs/
 
 # =========================
 
-data/
+data/*
+!data/**/*.dvc
+!data/**/.gitignore
 *.csv
 *.parquet
 *.feather

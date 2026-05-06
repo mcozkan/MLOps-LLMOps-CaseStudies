@@ -1,6 +1,7 @@
 # Data
 pandas
 numpy
+dvc
 
 # DB
 sqlmodel
@@ -33,3 +34,4 @@ rich
 # Opsiyonel ama çok iyi gözükür
 fastapi
 uvicorn
+
