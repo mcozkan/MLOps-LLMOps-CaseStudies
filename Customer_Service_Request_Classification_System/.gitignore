@@ -61,9 +61,7 @@ data/*
 !dvc.yaml
 !dvc.lock
 
-# ⚠️ Eğer sample CSV commitlenecekse:
 
-!sample_requests.csv
 
 # =========================
 
