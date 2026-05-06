@@ -1,0 +1,35 @@
+# Data
+pandas
+numpy
+
+# DB
+sqlmodel
+psycopg2-binary
+sqlalchemy
+
+# LLM / LangChain
+langchain
+langchain-core
+langchain-community
+langchain-google-genai
+google-generativeai
+
+# Validation
+pydantic
+
+# Env & config
+python-dotenv
+
+# Logging & retry (çok önemli)
+tenacity
+
+# API rate limit / robustness
+httpx
+
+# Dev tools (puan kazandırır)
+tqdm
+rich
+
+# Opsiyonel ama çok iyi gözükür
+fastapi
+uvicorn
