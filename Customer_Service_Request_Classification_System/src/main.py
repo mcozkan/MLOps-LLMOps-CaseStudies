@@ -127,6 +127,3 @@ def process_csv(csv_path: str):
 if __name__ == "__main__":
     create_db_and_tables()
     process_csv("data/raw/customer_requests.csv")
-
-
-
