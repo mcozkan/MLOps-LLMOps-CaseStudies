@@ -40,13 +40,11 @@ This project does not include:
 - Python
 - Pandas
 - LangChain
-- OpenAI / LLM Provider
+- Google Gemini AI
 - SQLModel
 - PostgreSQL
 - Docker
 - DVC
-- MLflow
-- pytest
 
 ## Project Structure
 
@@ -70,10 +68,6 @@ customer_service_project/
 │   ├── db_operations.py
 │   ├── models.py
 │
-├── tests/
-│   ├── test_classification.py
-│   ├── test_database.py
-│
 ├── docker-compose.yaml
 ├── requirements.txt
 ├── .gitignore
@@ -81,6 +75,26 @@ customer_service_project/
 └── dvc.yaml
 ```
 The project follows a modular architecture.
+
+## Processing Workflow
+
+```text
+sample_requests.csv
+        ↓
+pandas DataFrame
+        ↓
+Single-row processing loop
+        ↓
+LangChain Agent
+        ↓
+Google Gemini AI
+        ↓
+Structured Pydantic Output
+        ↓
+PostgreSQL Database
+ ├── customer_requests
+ └── request_classifications
+```
 
 ## Database Design
 
@@ -147,7 +161,7 @@ OPENAI_API_KEY=your_api_key_here
 ```
 #### Never and ever send the .env file to GitHub.
 
-## Dockerize
+## Docker Setup
 
 ```bash
 # Running with Docker:
