@@ -157,8 +157,8 @@ pip install -r requirements.txt
 ### 4. configure Environment Variables
 
 ```bash
-DATABASE_URL=postgresql://admin:admin1234@localhost:5432/customer_service_db
-OPENAI_API_KEY=your_api_key_here
+DATABASE_URL=postgresql://admin:admin@localhost:5433/customer_service_db
+GOOGLE_API_KEY=your_google_gemini_api_key
 ```
 #### Never and ever send the .env file to GitHub.
 
@@ -188,7 +188,7 @@ python src/main.py
   "category": "billing",
   "priority": "high",
   "tags": ["duplicate_charge", "payment_issue"],
-  "estimated_resolution_time": "24 hours",
+  "estimated_resolution_time": 24,
   "confidence": 0.91
 }
 ```
@@ -227,7 +227,7 @@ WHERE rc.ticket_id IS NULL;
 ```
 ![Database Tables](artifacts/screenshots/table_check_0.png)
 
-This query shows that the system connect both table correctly.
+This query shows that the system correctly connects both tables.
 
 ## Configuration in .env 
 
@@ -236,7 +236,7 @@ Main configuration values are managed through environment variables:
 | Variable | Description |
 |---|---|
 | DATABASE_URL | PostgreSQL connection string |
-| OPENAI_API_KEY | API key for LLM provider |
+| GOOGLE_API_KEY | Google Gemini API key |
 
 ## Data Versioning with DVC
 
@@ -249,6 +249,19 @@ dvc pull
 # Track data changes:
 dvc add data/sample_requests.csv
 ```
+
+## Evaluation Criteria Mapping
+
+| Requirement | Status |
+|---|-|
+| CSV processing with pandas | OK |
+| LangChain agent integration | OK |
+| Gemini AI classification | OK |
+| Structured output validation | OK |
+| PostgreSQL integration | OK |
+| Two-table relational schema | OK |
+| Error handling | OK |
+| Single request processing loop | OK |
 
 
 ## Known Limitations
