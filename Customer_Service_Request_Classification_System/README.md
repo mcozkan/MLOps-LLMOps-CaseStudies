@@ -51,17 +51,18 @@ This project does not include:
 ```text
 customer_service_project/
 │
-│── .dvc
-│── .venv
-│── .idea
-│
 ├── data/
 │   ├── raw/
 │       ├── sample_requests.csv
 │   ├── processed/
 │
 │── artifacts/
-│   ├── screenshots
+│   ├── reports/
+│       ├── ticket_created_log_report.txt
+│   ├── screenshots/
+│       ├── DbTables_ss.png
+│       ├── table_check_0.png
+│       ├── table_check_1.png 
 │
 ├── src/
 │   ├── main.py
@@ -191,6 +192,13 @@ python src/main.py
   "confidence": 0.91
 }
 ```
+## Processing Report
+
+A detailed processing log is stored under:
+
+```text
+artifacts/reports/ticket_created_report.txt
+```
 
 ## Example SQL Query
 
@@ -208,6 +216,17 @@ FROM customer_requests cr
 JOIN request_classifications rc
 ON cr.ticket_id = rc.ticket_id;
 ```
+[!Database Tables](artifacts/screenshots/table_check_1.png)
+
+```sql
+SELECT cr.ticket_id
+FROM customer_requests cr
+LEFT JOIN request_classifications rc
+ON cr.ticket_id = rc.ticket_id
+WHERE rc.ticket_id IS NULL;
+```
+[!Database Tables](artifacts/screenshots/table_check_0.png)
+
 This query shows that the system connect both table correctly.
 
 ## Configuration in .env 
