@@ -159,12 +159,13 @@ docker ps
 # Connect to PostgreSQL:
 docker exec -it postgres_db psql -U admin -d customer_service_db
 ```
+
+![Database Tables](artifacts/screenshots/DbTables_ss.png)
+
 ## Running App
 ```bash
 python src/main.py
 ```
-
-![Database Tables](artifacts/screenshots/DbTables_ss.png)
 
 ## Example Output:
 ```bash
