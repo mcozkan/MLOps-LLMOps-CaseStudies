@@ -216,7 +216,7 @@ FROM customer_requests cr
 JOIN request_classifications rc
 ON cr.ticket_id = rc.ticket_id;
 ```
-[!Database Tables](artifacts/screenshots/table_check_1.png)
+![Database Tables](artifacts/screenshots/table_check_1.png)
 
 ```sql
 SELECT cr.ticket_id
@@ -225,7 +225,7 @@ LEFT JOIN request_classifications rc
 ON cr.ticket_id = rc.ticket_id
 WHERE rc.ticket_id IS NULL;
 ```
-[!Database Tables](artifacts/screenshots/table_check_0.png)
+![Database Tables](artifacts/screenshots/table_check_0.png)
 
 This query shows that the system connect both table correctly.
 
