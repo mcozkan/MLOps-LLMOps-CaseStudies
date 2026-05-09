@@ -21,17 +21,17 @@ pydantic
 # Env & config
 python-dotenv
 
-# Logging & retry (çok önemli)
+# Logging & retry
 tenacity
 
 # API rate limit / robustness
 httpx
+tenacity
 
-# Dev tools (puan kazandırır)
+# Dev tools
 tqdm
 rich
 
-# Opsiyonel ama çok iyi gözükür
-fastapi
-uvicorn
+#fastapi
+#uvicorn
 

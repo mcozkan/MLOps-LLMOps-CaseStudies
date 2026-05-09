@@ -3,7 +3,7 @@
 # PYTHON
 
 # =========================
-
+*.zip
 **pycache**/
 *.py[cod]
 *$py.class

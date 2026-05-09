@@ -1,15 +1,15 @@
-import os
 import pandas as pd
 import time
 from models import customerRequests, requestClassifications
 from langchain.agents import create_agent
 from langchain_google_genai import ChatGoogleGenerativeAI
 
-from datetime import datetime, timedelta
+from datetime import datetime, UTC
 from typing import Literal, List
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 import traceback
+from tenacity import retry, stop_after_attempt, wait_fixed
 
 from db_operations import (
     create_db_and_tables,
@@ -56,6 +56,8 @@ agent = create_agent(
     """
 )
 
+# Retries Gemini API calls up to 3 times with a 2-second wait between attempts.
+@retry(stop=stop_after_attempt(3), wait=wait_fixed(2))
 def classify_single_request(row) -> ClassificationResult:
     user_prompt = f"""
     Ticket ID: {row["ticket_id"]}
@@ -76,20 +78,39 @@ def classify_single_request(row) -> ClassificationResult:
     return result["structured_response"]
 
 
+def validate_csv_columns(df: pd.DataFrame) -> None:
+    required_columns = [
+        "ticket_id",
+        "customer_id",
+        "channel",
+        "request_text",
+        "timestamp",
+    ]
+
+    missing_columns = [col for col in required_columns if col not in df.columns]
+
+    if missing_columns:
+        raise ValueError(f"Missing required CSV columns: {missing_columns}")
+
 
 
 def process_csv(csv_path: str):
     df = pd.read_csv(csv_path)
+    validate_csv_columns(df)
 
     for _, row in df.iterrows():
         ticket_id = row["ticket_id"]
+
         try:
-            print(f"Processing ticket: {row['ticket_id']}")
+            print(f"Processing ticket: {ticket_id}")
+
+            if pd.isna(row["request_text"]) or not str(row["request_text"]).strip():
+                raise ValueError(f"Empty request_text for ticket_id={ticket_id}")
 
             original_timestamp = pd.to_datetime(row["timestamp"]).to_pydatetime()
 
             customer_request = customerRequests(
-                ticket_id=row["ticket_id"],
+                ticket_id=ticket_id,
                 customer_id=row["customer_id"],
                 channel=row["channel"],
                 request_text=row["request_text"],
@@ -102,24 +123,22 @@ def process_csv(csv_path: str):
             print("AI RESULT:", classification_result)
 
             classification = requestClassifications(
-                ticket_id=row["ticket_id"],
+                ticket_id=ticket_id,
                 category=classification_result.category,
                 priority=classification_result.priority,
                 tags=classification_result.tags,
                 estimated_resolution_time=classification_result.estimated_resolution_time,
                 confidence=classification_result.confidence,
-                processed_at=datetime.now(),
+                processed_at=datetime.now(UTC),
             )
 
             print("DB CLASSIFICATION OBJECT:", classification)
             insert_request_classifications(classification)
 
-            print(f"Completed: {row['ticket_id']}")
+            print(f"Completed: {ticket_id}")
+            time.sleep(0.2)
 
-            time.sleep(1)
-
-
-        except Exception as e:
+        except Exception:
             print(f"Error processing ticket {ticket_id}:")
             traceback.print_exc()
             continue

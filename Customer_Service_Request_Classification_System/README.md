@@ -264,6 +264,34 @@ dvc add data/sample_requests.csv
 | Single request processing loop | OK |
 
 
+
+## API Rate Limit Handling & Retry Strategy
+
+The project includes retry-based API error handling using `tenacity`.
+
+If the Gemini API temporarily fails or reaches quota limits:
+
+- The system retries failed requests automatically
+- Waits between retry attempts
+- Prevents full pipeline crashes
+- Continues processing remaining tickets
+
+The project also includes a real execution log demonstrating:
+
+- Gemini API quota exhaustion (`HTTP 429 RESOURCE_EXHAUSTED`)
+- Automatic retry behavior using `tenacity`
+- Exception handling with traceback logging
+- Pipeline continuation without full application crash
+
+This demonstrates robust API failure handling and resilient row-by-row processing behavior.
+
+Example report:
+
+```text
+artifacts/reports/ticket_created_log_report_09052026.txt
+```
+
+
 ## Known Limitations
 
 - The current version processes requests sequentially.
@@ -271,7 +299,6 @@ dvc add data/sample_requests.csv
 - Classification quality depends on the LLM response.
 - No frontend dashboard is included yet.
 - Large-scale production deployment would require queue-based processing and monitoring.
-
 
 ## Future Improvements
 
