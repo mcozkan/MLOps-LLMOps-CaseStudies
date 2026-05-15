@@ -1,0 +1,37 @@
+# Data
+pandas
+numpy
+dvc
+
+# DB
+sqlmodel
+psycopg2-binary
+sqlalchemy
+
+# LLM / LangChain
+langchain
+langchain-core
+langchain-community
+langchain-google-genai
+google-generativeai
+
+# Validation
+pydantic
+
+# Env & config
+python-dotenv
+
+# Logging & retry
+tenacity
+
+# API rate limit / robustness
+httpx
+tenacity
+
+# Dev tools
+tqdm
+rich
+
+#fastapi
+#uvicorn
+
