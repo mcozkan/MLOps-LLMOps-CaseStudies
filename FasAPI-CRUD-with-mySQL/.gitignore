@@ -34,12 +34,13 @@ db_data/
 data/*
 !data/**/*.dvc
 !data/**/.gitignore
-*.csv
-*.parquet
-*.feather
+
+data/**/*.csv
+data/**/*.parquet
+data/**/*.feather
 
 # DVC TRACKING FILES
-!*.dvc
+!**/*.dvc
 !dvc.yaml
 !dvc.lock
 
