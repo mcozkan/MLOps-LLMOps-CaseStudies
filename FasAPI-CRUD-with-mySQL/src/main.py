@@ -1,10 +1,23 @@
-import pandas as pd
+from fastapi import FastAPI, status, Depends
+from models import Customer
+from database import get_db, engine
+from sqlmodel import Session, SQLModel
 
-pd.set_option('display.max_columns', None)
-pd.set_option('display.max_rows', None)
 
-df = pd.read_csv("../data/raw/customers.csv")
+app = FastAPI()
 
-print(df.head())
+# All Table Create
+@app.on_event("startup")
+def create_db_and_tables():
+    SQLModel.metadata.create_all(engine)
 
-df.info()
+
+@app.get("/")
+async def root():
+    return {"message" : "Hello!!!"}
+
+
+@app.get("/customers/{customer_id}")
+async def get_customers(customer_id : int):
+    return {"data" : f"Customer {customer_id} is created!!!"}
+

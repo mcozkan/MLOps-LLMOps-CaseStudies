@@ -27,6 +27,8 @@ tenacity
 # API rate limit / robustness
 httpx
 tenacity
+fastapi
+uvicorn[standard]
 
 # Dev tools
 tqdm

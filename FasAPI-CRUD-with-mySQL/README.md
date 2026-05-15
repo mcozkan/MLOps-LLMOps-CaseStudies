@@ -64,3 +64,7 @@ DVC was initialized with `--subdir` because the project lives inside a parent Gi
 ```bash
 dvc init --subdir
 ```
+### Before running the FastAPI application, make sure the MySQL container is running:
+
+```bash
+docker compose up -d
