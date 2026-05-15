@@ -1,7 +1,9 @@
 from fastapi import FastAPI, status, Depends
-from models import Customer
-from database import get_db, engine
-from sqlmodel import Session, SQLModel
+#from setuptools import depends
+from src.models import CustomerCreate, Customer, CustomerRead, CustomerUpdate
+from src.database import engine, get_db
+from sqlmodel import SQLModel, Session
+from src.security import hash_password
 
 
 app = FastAPI()
@@ -21,3 +23,20 @@ async def root():
 async def get_customers(customer_id : int):
     return {"data" : f"Customer {customer_id} is created!!!"}
 
+@app.post("/customers", response_model=CustomerRead,
+          status_code=status.HTTP_201_CREATED)
+async def create_customer(request: CustomerCreate, session: Session = Depends(get_db)):
+    customer_data = request.model_dump()
+    customer_data["customerPassword"] = hash_password(request.customerPassword)
+
+    new_customer = Customer(**customer_data)
+
+    session.add(new_customer)
+    session.commit()
+    session.refresh(new_customer)
+    # I removed `session.close()` because `get_db()` already handles opening and closing the database session automatically.
+
+    return new_customer
+
+
+#@app.

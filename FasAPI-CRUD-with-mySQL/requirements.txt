@@ -7,6 +7,7 @@ dvc
 sqlmodel
 psycopg2-binary
 sqlalchemy
+pymysql
 
 # LLM / LangChain
 langchain
@@ -33,7 +34,6 @@ uvicorn[standard]
 # Dev tools
 tqdm
 rich
-
-#fastapi
-#uvicorn
+# security
+passlib
 
