@@ -150,7 +150,7 @@ GET /customers?city=Caguas&limit=3
 This endpoint returns a limited number of customers fifltered by city.
 
 
-<img src="artifacts/swagger_screens/city_Caguas-limit_3.png" height ="100" width="250"/>
+<img src="artifacts/swagger_screens/city_Caguas-limit_3_v.png" height ="650" width="950"/>
 
 ---
 
