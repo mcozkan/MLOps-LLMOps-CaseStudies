@@ -24,7 +24,7 @@ docker exec -it fastapi_crud_mysql mysql -u root -p
 CREATE DATABASE mlops;
 ```
 
-<img src="artifacts/screenshots/create_db_mlops.png" hight ="100" width="300"/>
+<img src="artifacts/screenshots/create_db_mlops.png" height ="100" width="300"/>
 
 ### 4. Create the mlops_user
 
@@ -97,7 +97,7 @@ After the application starts successfully, Swagger UI will be available at:
 ```text
 http://127.0.0.1:8001/docs
 ```
-<img src="artifacts/screenshots/swagger_root_success.png" hight ="250" width="250"/>
+<img src="artifacts/screenshots/swagger_root_success.png" height ="250" width="250"/>
 
 ---
 
@@ -134,6 +134,7 @@ python seed_data.py
 ```
 
 ![seed_data_script.png](artifacts/screenshots/10_customers_seed_data_insert.png)
+
 ![seed_data_script.png](artifacts/screenshots/10_customers_seed_data_insert_on_db.png)
 
 ---
@@ -146,10 +147,10 @@ Example request:
 GET /customers?city=Caguas&limit=3
 ```
 
-This endpoint returns a limited number of customers filtered by city.
+This endpoint returns a limited number of customers fifltered by city.
 
 
-<img src="artifacts/swagger_screens/city_Caguas-limit_3.png" hight ="100" width="250"/>
+<img src="artifacts/swagger_screens/city_Caguas-limit_3.png" height ="100" width="250"/>
 
 ---
 
@@ -165,7 +166,10 @@ Example:
 - Previous lastname: `Smith`
 - Updated lastname: `Fox`
 
-![update_customer_fox.png](artifacts/screenshots/update_customer_fox.png)
+
+<img src="artifacts/swagger_screens/from_smith-to-Fox_on_swagger.png" height ="100" width="250"/>
+
+![update_customer_fox.png](artifacts/screenshots/from_smith-to-Fox_on_db.png)
 
 ---
 
@@ -179,7 +183,9 @@ DELETE /customers/4
 
 After deletion, customer with ID 4 no longer exists in the database.
 
-![delete_customer.png](artifacts/screenshots/delete_customer.png)
+<img src="artifacts/swagger_screens/Id-4_deleted.png" height ="100" width="250"/>
+
+![update_customer_fox.png](artifacts/screenshots/Id-4_deleted_on_db.png)
 
 ---
 
@@ -203,14 +209,23 @@ After deletion, customer with ID 4 no longer exists in the database.
 FasAPI-CRUD-with-mySQL/
 │
 ├── artifacts/
+│   ├── screenshots/
+│   └── swagger_screens/
+│
 ├── data/
+│   ├── processed/
+│   └── raw/
+│       ├── customers.csv
+│       └── customers.csv.dvc
+│ 
 ├── src/
+│   ├── __init__.py
 │   ├── database.py
 │   ├── main.py
 │   ├── models.py
-│   └── security.py
+│   ├── security.py
+│   └── seed_data.py
 │
-├── seed_data.py
 ├── docker-compose.yaml
 ├── requirements.txt
 ├── .gitignore
