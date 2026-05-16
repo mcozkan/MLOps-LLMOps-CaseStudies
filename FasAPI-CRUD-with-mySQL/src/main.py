@@ -2,7 +2,8 @@ from fastapi import FastAPI, status, Depends
 #from setuptools import depends
 from src.models import CustomerCreate, Customer, CustomerRead, CustomerUpdate
 from src.database import engine, get_db
-from sqlmodel import SQLModel, Session
+from sqlmodel import SQLModel, Session, select
+from typing import Optional, List
 from src.security import hash_password
 
 
@@ -39,4 +40,25 @@ async def create_customer(request: CustomerCreate, session: Session = Depends(ge
     return new_customer
 
 
-#@app.
+@app.get("/customers", response_model=List[CustomerRead])
+async def list_customers(
+    city: Optional[str] = None,
+    limit: int = 10,
+    session: Session = Depends(get_db),
+):
+    statement = select(Customer)
+
+    if city:
+        statement = statement.where(
+            Customer.customerCity == city
+        )
+
+    statement = statement.limit(limit)
+
+    customers = session.exec(statement).all()
+
+    return customers
+'''
+@app.post("/customers", response_model=List[CustomerRead])
+async def 
+'''

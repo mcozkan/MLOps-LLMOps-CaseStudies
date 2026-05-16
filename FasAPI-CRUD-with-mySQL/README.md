@@ -23,7 +23,8 @@ docker exec -it fastapi_crud_mysql mysql -u root -p
 ```bash
 CREATE DATABASE mlops;
 ```
-![create_db_mlops.png](artifacts/screenshots/create_db_mlops.png)
+
+<img src="artifacts/screenshots/create_db_mlops.png" hight ="100" width="300"/>
 
 ### 4. Create the mlops_user
 
@@ -96,8 +97,7 @@ After the application starts successfully, Swagger UI will be available at:
 ```text
 http://127.0.0.1:8001/docs
 ```
-
-![swagger_ui.png](artifacts/screenshots/swagger_ui.png)
+<img src="artifacts/screenshots/swagger_root_success.png" hight ="250" width="250"/>
 
 ---
 
@@ -119,7 +119,7 @@ Customer passwords are hashed using `passlib` and `bcrypt` before being stored i
 
 Example hashed password stored in MySQL:
 
-![hashed_passwords_mysql.png](artifacts/screenshots/hashed_passwords_mysql.png)
+![hashed_passwords_mysql.png](artifacts/screenshots/first_customer_insert_by_swagger_in_db.png)
 
 ---
 
@@ -133,7 +133,8 @@ Run the script with:
 python seed_data.py
 ```
 
-![seed_data_script.png](artifacts/screenshots/seed_data_script.png)
+![seed_data_script.png](artifacts/screenshots/10_customers_seed_data_insert.png)
+![seed_data_script.png](artifacts/screenshots/10_customers_seed_data_insert_on_db.png)
 
 ---
 
@@ -147,7 +148,8 @@ GET /customers?city=Caguas&limit=3
 
 This endpoint returns a limited number of customers filtered by city.
 
-![filter_city_limit.png](artifacts/screenshots/filter_city_limit.png)
+
+<img src="artifacts/swagger_screens/city_Caguas-limit_3.png" hight ="100" width="250"/>
 
 ---
 
