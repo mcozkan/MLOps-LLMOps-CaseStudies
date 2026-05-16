@@ -28,6 +28,7 @@ The primary goal of this repository is to document my progression from foundatio
 MLOps-LLMOps-CaseStudies/
 │
 ├── Customer_Service_Request_Classification_System/
+├── FasAPI-CRUD-with-mySQL/
 │
 ├── README.md
 └── .gitignore
