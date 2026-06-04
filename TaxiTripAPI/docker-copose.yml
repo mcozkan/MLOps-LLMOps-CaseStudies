@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: taxitrip_postgresql_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: taxitrip_db
+    ports:
+      - "5433:5432"
+    
+    volumes:
+      - taxitrip_postgres_data:/var/lib/postgresql/data
+volumes:
+  taxitrip_postgres_data:
