@@ -170,13 +170,37 @@ reports/test_report.txt
 
 - Successful Register:
 
+```text
+{
+  "username": "Ozkan",
+  "email": "ozkan@test.com",
+  "password": "323232pk"
+}
+```
+
 <img src="reports/screenshots/2_register_new_user.png" height ="600" width="800">
 
+
 - Duplicate User Name:
+
+```text
+{
+  "username": "Ozkan",
+  "email": "o.zkan@test.com",
+  "password": "323232fk"
+}
+```
 
 <img src="reports/screenshots/3_register_usernameexists.png" height ="600" width="800">
 
 - Login & JWT Token:
+
+```text
+{
+  "username": "Ozkan",
+  "password": "323232pk"
+}
+```
 
 <img src="reports/screenshots/5_login_successfulwithMin username.png" height ="600" width="800">
 
