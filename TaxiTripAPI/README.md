@@ -14,6 +14,8 @@ Taxi Trip API is a FastAPI + PostgreSQL application developed as part of an MLOp
 - Uvicorn
 - Pydantic
 - Bash
+- DVC (Data Version Control)
+- uv
 
 ## Features
 
