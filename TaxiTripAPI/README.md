@@ -1,5 +1,3 @@
-Overview
-
 # Taxi Trip API Development
 
 Taxi Trip API is a FastAPI + PostgreSQL application developed as part of an MLOps/LLMOps Bootcamp assignment. The project provides user authentication, taxi trip management, CSV dataset import and automated integration testing.
