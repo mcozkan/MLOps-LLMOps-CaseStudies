@@ -178,11 +178,8 @@ reports/test_report.txt
 }
 ```
 <p align="center">
-<img src="reports/screenshots/2_register_new_user.png" width="900">
+<img src="reports/screenshots/2_register_new_user.png" width="700">
 </p>
-
-![Register Success](reports/screenshots/2_register_new_user.png)
-
 
 - Duplicate User Name:
 
@@ -193,8 +190,10 @@ reports/test_report.txt
   "password": "323232fk"
 }
 ```
-
+<p align="center">
 <img src="reports/screenshots/3_register_usernameexists.png" height ="400" width="600">
+</p>
+
 
 - Login & JWT Token:
 
@@ -205,8 +204,9 @@ reports/test_report.txt
 }
 ```
 
+<p align="center">
 <img src="reports/screenshots/5_login_successfulwithMin username.png" height ="400" width="600">
-
+</p>
 
 
 ## Swagger Docs:
