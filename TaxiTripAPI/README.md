@@ -178,7 +178,7 @@ reports/test_report.txt
 }
 ```
 
-<img src="reports/screenshots/2_register_new_user.png" height ="600" width="800">
+<img src="reports/screenshots/2_register_new_user.png" height ="400" width="600">
 
 
 - Duplicate User Name:
@@ -191,7 +191,7 @@ reports/test_report.txt
 }
 ```
 
-<img src="reports/screenshots/3_register_usernameexists.png" height ="600" width="800">
+<img src="reports/screenshots/3_register_usernameexists.png" height ="400" width="600">
 
 - Login & JWT Token:
 
@@ -202,11 +202,11 @@ reports/test_report.txt
 }
 ```
 
-<img src="reports/screenshots/5_login_successfulwithMin username.png" height ="600" width="800">
+<img src="reports/screenshots/5_login_successfulwithMin username.png" height ="400" width="600">
 
 
 
-# Swagger Docs:
+## Swagger Docs:
 
 After starting API:
 
