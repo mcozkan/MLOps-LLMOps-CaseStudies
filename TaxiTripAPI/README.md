@@ -315,6 +315,6 @@ http://127.0.0.1:8001/docs
 Murat Çağrı Özkan
 
 GitHub:
-https://github.com/...
+https://github.com/mcozkan
 
 Developed as part of the VBO MLOps / LLMOps Bootcamp.
