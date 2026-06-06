@@ -7,8 +7,8 @@ from datetime import datetime
 ############################################ Base Models ############################################ 
 # Base model for all TaxiTrip-related schemas and database models
 class TaxiTripBase(SQLModel):
-    VendorID : int = Field(description= 'Identifier for the vendor providing the trip data')
-    tpep_pickup_datetime : datetime = Field(description= 'Date and time when the trip started')
+    VendorID: int = Field(description= 'Identifier for the vendor providing the trip data')
+    tpep_pickup_datetime: datetime = Field(description= 'Date and time when the trip started')
     tpep_dropoff_datetime: datetime =  Field(description= 'Date and time when the trip ended')
     passenger_count: float = Field(description= 'Number of passengers in the trip')
     trip_distance: float = Field(description= 'Distance of the trip in miles')
@@ -37,13 +37,18 @@ class UserBase(SQLModel):
 
 # Pydantic schema for creating a new TaxiTrip record (used in POST requests)
 class TaxiTripCreate(TaxiTripBase):
-    pass
+    # Optional field for row_id, can be generated automatically if not provided
+    row_id: Optional[str] = Field(default=None, description="Optional unique identifier. Generated automatically if omitted.")  
 
 
 # Pydantic schema for reading a TaxiTrip record (used in GET requests)
 class TaxiTripRead(TaxiTripBase):
     row_id: str = Field(description= 'Unique identifier for each row (e.g., a hash of row values or int)')
 
+# Pydantic schema for user login (used in POST requests for authentication)
+class UserLogin(SQLModel):
+    username: str = Field(description= 'Username for the user (used for authentication)')
+    password: str = Field(description= 'Password for the user (used for authentication)')
 
 # Pydantic schema for creating a new User (used in POST requests)
 class UserCreate(UserBase):
@@ -53,5 +58,10 @@ class UserCreate(UserBase):
 # Pydantic schema for reading a User (used in GET requests)
 class UserRead(UserBase):
     id: int = Field(description= 'Unique identifier for the user')
+
+# Pydantic schema for representing an authentication token (used in responses after successful login)
+class Token(SQLModel):
+    access_token: str = Field(description= 'JWT access token for authentication')
+    token_type: str = Field(default="bearer", description="Authentication scheme") 
 
 

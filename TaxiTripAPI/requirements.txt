@@ -9,3 +9,4 @@ langchain
 langchain-google-genai
 dvc
 passlib[bcrypt]
+python-jose[cryptography]

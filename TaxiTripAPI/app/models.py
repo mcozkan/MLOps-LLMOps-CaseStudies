@@ -1,6 +1,6 @@
 from typing import Optional
-from sqlmodel import SQLModel, Field
-from schemas import TaxiTripBase, UserBase
+from sqlmodel import Field
+from app.schemas import TaxiTripBase, UserBase
 
 
 # Inherited from tha TaxiTripBase model that it has been defined
