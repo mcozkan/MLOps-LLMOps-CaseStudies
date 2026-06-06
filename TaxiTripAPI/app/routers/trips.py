@@ -1,6 +1,6 @@
 import hashlib
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
 from sqlmodel import Session, select
@@ -23,21 +23,30 @@ def generate_row_id(trip_data: TaxiTripCreate) -> str:
 def get_current_user(
     token: str = Depends(oauth2_scheme),
     db: Session = Depends(get_db),
-):
+) -> User:
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username = payload.get("sub")
 
         if username is None:
-            raise HTTPException(status_code=401, detail="Invalid token")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid token",
+            )
 
     except JWTError:
-        raise HTTPException(status_code=401, detail="Invalid token")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token",
+        )
 
     user = db.exec(select(User).where(User.username == username)).first()
 
     if user is None:
-        raise HTTPException(status_code=401, detail="User not found")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="User not found",
+        )
 
     return user
 
@@ -53,7 +62,10 @@ def create_trip(
     existing_trip = db.get(TaxiTrip, row_id)
 
     if existing_trip:
-        raise HTTPException(status_code=400, detail="Trip already exists")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Trip already exists",
+        )
 
     trip = TaxiTrip(
         **trip_data.model_dump(exclude={"row_id"}),
@@ -74,6 +86,7 @@ def create_trip(
 def get_trips(
     limit: int = Query(default=10, ge=1, le=10),
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     trips = db.exec(
         select(TaxiTrip)
@@ -82,3 +95,20 @@ def get_trips(
     ).all()
 
     return trips
+
+
+@router.get("/trips/{row_id}", response_model=TaxiTripRead)
+def get_trip_by_id(
+    row_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    trip = db.get(TaxiTrip, row_id)
+
+    if trip is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Trip not found",
+        )
+
+    return trip

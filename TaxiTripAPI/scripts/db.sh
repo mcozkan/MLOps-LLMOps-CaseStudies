@@ -8,7 +8,7 @@ docker compose up -d
 
 echo "Waiting for PostgreSQL..."
 
-until docker exec postgresql_db pg_isready -U postgres; do
+until docker exec taxitrip_db pg_isready -U postgres; do
   echo "PostgreSQL is not ready yet..."
   sleep 2
 done

@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:15
-    container_name: taxitrip_postgresql_db
+    container_name: taxitrip_db
     restart: always
     environment:
       POSTGRES_USER: postgres
