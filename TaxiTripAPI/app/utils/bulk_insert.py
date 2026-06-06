@@ -34,13 +34,22 @@ def bulk_insert():
     create_db_and_tables()
     df = load_df()
     print(f"Loaded rows: {len(df)}")
-    records = df.to_dict(orient="records")
+
+    inserted_count = 0
+
     with Session(engine) as session:
-        trips = [TaxiTrip(**record) for record in records]
-        session.add_all(trips)
-        session.commit()
-    print(f"Inserted rows: {len(trips)}")
+        for record in df.to_dict(orient="records"):
+            trip = TaxiTrip(**record)
+
+            existing_trip = session.get(TaxiTrip, trip.row_id)
+            if existing_trip:
+                continue
+
+            session.add(trip)
+            session.commit()
+            inserted_count += 1
+
+    print(f"Inserted rows: {inserted_count}")
 
 if __name__ == "__main__":
-
     bulk_insert()

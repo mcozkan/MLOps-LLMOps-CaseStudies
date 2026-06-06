@@ -49,11 +49,11 @@ class TaxiTripRead(TaxiTripBase):
 # Pydantic schema for user login (used in POST requests for authentication)
 class UserLogin(SQLModel):
     username: str = Field(description= 'Username for the user (used for authentication)')
-    password: constr(min_length=4, max_length=72) = Field(description= 'Password for the user (used for authentication)')
+    password: str = Field(min_length=4, max_length=72, description='Password for the user (used for authentication)')
 
 # Pydantic schema for creating a new User (used in POST requests)
 class UserCreate(UserBase):
-    password: constr(min_length=4, max_length=72) = Field(description= 'Password for the user (will be hashed before storing)')
+    password: str = Field(min_length=4, max_length=72, description='Password for the user (will be hashed before storing)')
 
 
 # Pydantic schema for reading a User (used in GET requests)

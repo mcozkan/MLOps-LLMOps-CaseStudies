@@ -86,8 +86,7 @@ def create_trip(
 def get_trips(
     limit: int = Query(default=10, ge=1, le=10),
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
-):
+    ):
     trips = db.exec(
         select(TaxiTrip)
         .order_by(TaxiTrip.tpep_pickup_datetime.desc())

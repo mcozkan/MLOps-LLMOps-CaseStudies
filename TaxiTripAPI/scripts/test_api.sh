@@ -28,12 +28,33 @@ fi
 
 echo "TOKEN received."
 
-echo -e "\n\n4. Security test - access without token"
-curl -i "$BASE_URL/trips"
+echo -e "\n\n4. Public retrieval test - GET /trips without token"
+curl -i "$BASE_URL/trips?limit=5"
 
-echo -e "\n\n5. Get trips with token"
-curl -i "$BASE_URL/trips?limit=5" \
-  -H "Authorization: Bearer $TOKEN"
+echo -e "\n\n5. Security test - POST /trips without token should fail"
+curl -i -X POST "$BASE_URL/trips" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "VendorID": 1,
+    "tpep_pickup_datetime": "2024-01-01T10:00:00",
+    "tpep_dropoff_datetime": "2024-01-01T10:20:00",
+    "passenger_count": 1,
+    "trip_distance": 3.5,
+    "RatecodeID": 1,
+    "store_and_fwd_flag": "N",
+    "PULocationID": 100,
+    "DOLocationID": 200,
+    "payment_type": 1,
+    "fare_amount": 15.5,
+    "extra": 1.0,
+    "mta_tax": 0.5,
+    "tip_amount": 2.0,
+    "tolls_amount": 0.0,
+    "improvement_surcharge": 0.3,
+    "total_amount": 19.3,
+    "congestion_surcharge": 2.5,
+    "Airport_fee": 0.0
+  }'
 
 echo -e "\n\n6. Create trip with token"
 curl -i -X POST "$BASE_URL/trips" \
@@ -61,16 +82,18 @@ curl -i -X POST "$BASE_URL/trips" \
     "Airport_fee": 0.0
   }'
 
-echo -e "\n\n7. Validation test - invalid trip body"
+echo -e "\n\n7. Get trips after authenticated creation"
+curl -i "$BASE_URL/trips?limit=10"
+
+echo -e "\n\n8. Validation test - invalid trip body"
 curl -i -X POST "$BASE_URL/trips" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
   -d '{"trip_distance": "wrong_type"}'
 
-echo -e "\n\n8. Error handling - trip not found"
+echo -e "\n\n9. Error handling - trip not found"
 curl -i "$BASE_URL/trips/999999" \
   -H "Authorization: Bearer $TOKEN"
 
-echo -e "\n\n9. Performance sanity check"
-time curl -s "$BASE_URL/trips?limit=10" \
-  -H "Authorization: Bearer $TOKEN" > /dev/null
+echo -e "\n\n10. Performance sanity check - public retrieval"
+time curl -s "$BASE_URL/trips?limit=10" > /dev/null

@@ -1,0 +1,305 @@
+(.venv) parallels@ubuntu-gnu-linux-24-04-3:~/MLOps-LLMOps-CaseStudies/TaxiTripAPI$ ./scripts/run-all.sh
+===== RUN-ALL STARTED =====
+Starting PostgreSQL...
+[+] up 3/3
+ ✔ Network taxitripapi_default               Created                                                                                                                     0.0s
+ ✔ Volume taxitripapi_taxitrip_postgres_data Created                                                                                                                     0.0s
+ ✔ Container taxitrip_db                     Started                                                                                                                     0.1s
+Waiting for PostgreSQL...
+/var/run/postgresql:5432 - no response
+PostgreSQL is not ready yet...
+/var/run/postgresql:5432 - accepting connections
+PostgreSQL is ready!
+===== DB DONE =====
+===== FASTAPI STARTED =====
+Starting FastAPI...
+INFO:     Will watch for changes in these directories: ['/home/parallels/MLOps-LLMOps-CaseStudies/TaxiTripAPI']
+INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)
+INFO:     Started reloader process [205053] using WatchFiles
+INFO:     Started server process [205063]
+INFO:     Waiting for application startup.
+2026-06-06 05:08:43,703 INFO sqlalchemy.engine.Engine select pg_catalog.version()
+2026-06-06 05:08:43,703 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-06 05:08:43,704 INFO sqlalchemy.engine.Engine select current_schema()
+2026-06-06 05:08:43,704 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-06 05:08:43,704 INFO sqlalchemy.engine.Engine show standard_conforming_strings
+2026-06-06 05:08:43,704 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-06 05:08:43,705 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-06 05:08:43,707 INFO sqlalchemy.engine.Engine SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2026-06-06 05:08:43,707 INFO sqlalchemy.engine.Engine [generated in 0.00029s] {'table_name': 'taxitrips', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2026-06-06 05:08:43,708 INFO sqlalchemy.engine.Engine SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2026-06-06 05:08:43,709 INFO sqlalchemy.engine.Engine [cached since 0.001604s ago] {'table_name': 'users', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2026-06-06 05:08:43,709 INFO sqlalchemy.engine.Engine 
+CREATE TABLE taxitrips (
+        "VendorID" INTEGER NOT NULL, 
+        tpep_pickup_datetime TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
+        tpep_dropoff_datetime TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
+        passenger_count FLOAT NOT NULL, 
+        trip_distance FLOAT NOT NULL, 
+        "RatecodeID" FLOAT NOT NULL, 
+        store_and_fwd_flag VARCHAR NOT NULL, 
+        "PULocationID" INTEGER NOT NULL, 
+        "DOLocationID" INTEGER NOT NULL, 
+        payment_type INTEGER NOT NULL, 
+        fare_amount FLOAT NOT NULL, 
+        extra FLOAT NOT NULL, 
+        mta_tax FLOAT NOT NULL, 
+        tip_amount FLOAT NOT NULL, 
+        tolls_amount FLOAT NOT NULL, 
+        improvement_surcharge FLOAT NOT NULL, 
+        total_amount FLOAT NOT NULL, 
+        congestion_surcharge FLOAT NOT NULL, 
+        "Airport_fee" FLOAT NOT NULL, 
+        row_id VARCHAR NOT NULL, 
+        PRIMARY KEY (row_id)
+)
+
+
+2026-06-06 05:08:43,710 INFO sqlalchemy.engine.Engine [no key 0.00006s] {}
+2026-06-06 05:08:43,713 INFO sqlalchemy.engine.Engine 
+CREATE TABLE users (
+        username VARCHAR NOT NULL, 
+        email VARCHAR, 
+        id SERIAL NOT NULL, 
+        password_hash VARCHAR NOT NULL, 
+        PRIMARY KEY (id)
+)
+
+
+2026-06-06 05:08:43,713 INFO sqlalchemy.engine.Engine [no key 0.00006s] {}
+2026-06-06 05:08:43,715 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     Application startup complete.
+INFO:     127.0.0.1:35634 - "GET / HTTP/1.1" 200 OK
+Waiting for API startup...
+===== API READY =====
+Starting data insertion - bulk insert...
+2026-06-06 05:08:44,634 INFO sqlalchemy.engine.Engine select pg_catalog.version()
+2026-06-06 05:08:44,634 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-06 05:08:44,634 INFO sqlalchemy.engine.Engine select current_schema()
+2026-06-06 05:08:44,634 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-06 05:08:44,634 INFO sqlalchemy.engine.Engine show standard_conforming_strings
+2026-06-06 05:08:44,634 INFO sqlalchemy.engine.Engine [raw sql] {}
+2026-06-06 05:08:44,635 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-06 05:08:44,636 INFO sqlalchemy.engine.Engine SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2026-06-06 05:08:44,636 INFO sqlalchemy.engine.Engine [generated in 0.00010s] {'table_name': 'taxitrips', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2026-06-06 05:08:44,637 INFO sqlalchemy.engine.Engine SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2026-06-06 05:08:44,637 INFO sqlalchemy.engine.Engine [cached since 0.000754s ago] {'table_name': 'users', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2026-06-06 05:08:44,637 INFO sqlalchemy.engine.Engine COMMIT
+Reading CSV: /home/parallels/MLOps-LLMOps-CaseStudies/TaxiTripAPI/data/raw/taxi-trip-data.csv
+Loaded rows: 5
+2026-06-06 05:08:44,641 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-06 05:08:44,643 INFO sqlalchemy.engine.Engine SELECT taxitrips."VendorID" AS "taxitrips_VendorID", taxitrips.tpep_pickup_datetime AS taxitrips_tpep_pickup_datetime, taxitrips.tpep_dropoff_datetime AS taxitrips_tpep_dropoff_datetime, taxitrips.passenger_count AS taxitrips_passenger_count, taxitrips.trip_distance AS taxitrips_trip_distance, taxitrips."RatecodeID" AS "taxitrips_RatecodeID", taxitrips.store_and_fwd_flag AS taxitrips_store_and_fwd_flag, taxitrips."PULocationID" AS "taxitrips_PULocationID", taxitrips."DOLocationID" AS "taxitrips_DOLocationID", taxitrips.payment_type AS taxitrips_payment_type, taxitrips.fare_amount AS taxitrips_fare_amount, taxitrips.extra AS taxitrips_extra, taxitrips.mta_tax AS taxitrips_mta_tax, taxitrips.tip_amount AS taxitrips_tip_amount, taxitrips.tolls_amount AS taxitrips_tolls_amount, taxitrips.improvement_surcharge AS taxitrips_improvement_surcharge, taxitrips.total_amount AS taxitrips_total_amount, taxitrips.congestion_surcharge AS taxitrips_congestion_surcharge, taxitrips."Airport_fee" AS "taxitrips_Airport_fee", taxitrips.row_id AS taxitrips_row_id 
+FROM taxitrips 
+WHERE taxitrips.row_id = %(pk_1)s
+2026-06-06 05:08:44,643 INFO sqlalchemy.engine.Engine [generated in 0.00009s] {'pk_1': '2b7fe92dc4905238f0d4cceb82114e07'}
+2026-06-06 05:08:44,644 INFO sqlalchemy.engine.Engine INSERT INTO taxitrips ("VendorID", tpep_pickup_datetime, tpep_dropoff_datetime, passenger_count, trip_distance, "RatecodeID", store_and_fwd_flag, "PULocationID", "DOLocationID", payment_type, fare_amount, extra, mta_tax, tip_amount, tolls_amount, improvement_surcharge, total_amount, congestion_surcharge, "Airport_fee", row_id) VALUES (%(VendorID)s, %(tpep_pickup_datetime)s, %(tpep_dropoff_datetime)s, %(passenger_count)s, %(trip_distance)s, %(RatecodeID)s, %(store_and_fwd_flag)s, %(PULocationID)s, %(DOLocationID)s, %(payment_type)s, %(fare_amount)s, %(extra)s, %(mta_tax)s, %(tip_amount)s, %(tolls_amount)s, %(improvement_surcharge)s, %(total_amount)s, %(congestion_surcharge)s, %(Airport_fee)s, %(row_id)s)
+2026-06-06 05:08:44,644 INFO sqlalchemy.engine.Engine [generated in 0.00014s] {'VendorID': 2, 'tpep_pickup_datetime': '2024-11-11 00:52:01', 'tpep_dropoff_datetime': '2024-11-12 00:23:59', 'passenger_count': 2.0, 'trip_distance': 1.28, 'RatecodeID': 1.0, 'store_and_fwd_flag': 'N', 'PULocationID': 249, 'DOLocationID': 144, 'payment_type': 1, 'fare_amount': 9.3, 'extra': 1.0, 'mta_tax': 0.5, 'tip_amount': 0.72, 'tolls_amount': 0.0, 'improvement_surcharge': 1.0, 'total_amount': 15.02, 'congestion_surcharge': 2.5, 'Airport_fee': 0.0, 'row_id': '2b7fe92dc4905238f0d4cceb82114e07'}
+2026-06-06 05:08:44,645 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-06 05:08:44,646 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-06 05:08:44,646 INFO sqlalchemy.engine.Engine SELECT taxitrips."VendorID" AS "taxitrips_VendorID", taxitrips.tpep_pickup_datetime AS taxitrips_tpep_pickup_datetime, taxitrips.tpep_dropoff_datetime AS taxitrips_tpep_dropoff_datetime, taxitrips.passenger_count AS taxitrips_passenger_count, taxitrips.trip_distance AS taxitrips_trip_distance, taxitrips."RatecodeID" AS "taxitrips_RatecodeID", taxitrips.store_and_fwd_flag AS taxitrips_store_and_fwd_flag, taxitrips."PULocationID" AS "taxitrips_PULocationID", taxitrips."DOLocationID" AS "taxitrips_DOLocationID", taxitrips.payment_type AS taxitrips_payment_type, taxitrips.fare_amount AS taxitrips_fare_amount, taxitrips.extra AS taxitrips_extra, taxitrips.mta_tax AS taxitrips_mta_tax, taxitrips.tip_amount AS taxitrips_tip_amount, taxitrips.tolls_amount AS taxitrips_tolls_amount, taxitrips.improvement_surcharge AS taxitrips_improvement_surcharge, taxitrips.total_amount AS taxitrips_total_amount, taxitrips.congestion_surcharge AS taxitrips_congestion_surcharge, taxitrips."Airport_fee" AS "taxitrips_Airport_fee", taxitrips.row_id AS taxitrips_row_id 
+FROM taxitrips 
+WHERE taxitrips.row_id = %(pk_1)s
+2026-06-06 05:08:44,646 INFO sqlalchemy.engine.Engine [cached since 0.003284s ago] {'pk_1': '7e0d0079c192ee88e7e197462b003aef'}
+2026-06-06 05:08:44,646 INFO sqlalchemy.engine.Engine INSERT INTO taxitrips ("VendorID", tpep_pickup_datetime, tpep_dropoff_datetime, passenger_count, trip_distance, "RatecodeID", store_and_fwd_flag, "PULocationID", "DOLocationID", payment_type, fare_amount, extra, mta_tax, tip_amount, tolls_amount, improvement_surcharge, total_amount, congestion_surcharge, "Airport_fee", row_id) VALUES (%(VendorID)s, %(tpep_pickup_datetime)s, %(tpep_dropoff_datetime)s, %(passenger_count)s, %(trip_distance)s, %(RatecodeID)s, %(store_and_fwd_flag)s, %(PULocationID)s, %(DOLocationID)s, %(payment_type)s, %(fare_amount)s, %(extra)s, %(mta_tax)s, %(tip_amount)s, %(tolls_amount)s, %(improvement_surcharge)s, %(total_amount)s, %(congestion_surcharge)s, %(Airport_fee)s, %(row_id)s)
+2026-06-06 05:08:44,646 INFO sqlalchemy.engine.Engine [cached since 0.001897s ago] {'VendorID': 2, 'tpep_pickup_datetime': '2024-11-11 00:53:22', 'tpep_dropoff_datetime': '2024-11-12 00:29:47', 'passenger_count': 1.0, 'trip_distance': 3.93, 'RatecodeID': 1.0, 'store_and_fwd_flag': 'N', 'PULocationID': 142, 'DOLocationID': 152, 'payment_type': 1, 'fare_amount': 19.8, 'extra': 1.0, 'mta_tax': 0.5, 'tip_amount': 3.72, 'tolls_amount': 0.0, 'improvement_surcharge': 1.0, 'total_amount': 28.52, 'congestion_surcharge': 2.5, 'Airport_fee': 0.0, 'row_id': '7e0d0079c192ee88e7e197462b003aef'}
+2026-06-06 05:08:44,646 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-06 05:08:44,647 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-06 05:08:44,647 INFO sqlalchemy.engine.Engine SELECT taxitrips."VendorID" AS "taxitrips_VendorID", taxitrips.tpep_pickup_datetime AS taxitrips_tpep_pickup_datetime, taxitrips.tpep_dropoff_datetime AS taxitrips_tpep_dropoff_datetime, taxitrips.passenger_count AS taxitrips_passenger_count, taxitrips.trip_distance AS taxitrips_trip_distance, taxitrips."RatecodeID" AS "taxitrips_RatecodeID", taxitrips.store_and_fwd_flag AS taxitrips_store_and_fwd_flag, taxitrips."PULocationID" AS "taxitrips_PULocationID", taxitrips."DOLocationID" AS "taxitrips_DOLocationID", taxitrips.payment_type AS taxitrips_payment_type, taxitrips.fare_amount AS taxitrips_fare_amount, taxitrips.extra AS taxitrips_extra, taxitrips.mta_tax AS taxitrips_mta_tax, taxitrips.tip_amount AS taxitrips_tip_amount, taxitrips.tolls_amount AS taxitrips_tolls_amount, taxitrips.improvement_surcharge AS taxitrips_improvement_surcharge, taxitrips.total_amount AS taxitrips_total_amount, taxitrips.congestion_surcharge AS taxitrips_congestion_surcharge, taxitrips."Airport_fee" AS "taxitrips_Airport_fee", taxitrips.row_id AS taxitrips_row_id 
+FROM taxitrips 
+WHERE taxitrips.row_id = %(pk_1)s
+2026-06-06 05:08:44,647 INFO sqlalchemy.engine.Engine [cached since 0.004668s ago] {'pk_1': 'a34f8ea68ef7a3da7d9496c05c506e3d'}
+2026-06-06 05:08:44,648 INFO sqlalchemy.engine.Engine INSERT INTO taxitrips ("VendorID", tpep_pickup_datetime, tpep_dropoff_datetime, passenger_count, trip_distance, "RatecodeID", store_and_fwd_flag, "PULocationID", "DOLocationID", payment_type, fare_amount, extra, mta_tax, tip_amount, tolls_amount, improvement_surcharge, total_amount, congestion_surcharge, "Airport_fee", row_id) VALUES (%(VendorID)s, %(tpep_pickup_datetime)s, %(tpep_dropoff_datetime)s, %(passenger_count)s, %(trip_distance)s, %(RatecodeID)s, %(store_and_fwd_flag)s, %(PULocationID)s, %(DOLocationID)s, %(payment_type)s, %(fare_amount)s, %(extra)s, %(mta_tax)s, %(tip_amount)s, %(tolls_amount)s, %(improvement_surcharge)s, %(total_amount)s, %(congestion_surcharge)s, %(Airport_fee)s, %(row_id)s)
+2026-06-06 05:08:44,648 INFO sqlalchemy.engine.Engine [cached since 0.003277s ago] {'VendorID': 2, 'tpep_pickup_datetime': '2024-11-11 03:17:30', 'tpep_dropoff_datetime': '2024-11-12 02:42:53', 'passenger_count': 3.0, 'trip_distance': 0.66, 'RatecodeID': 1.0, 'store_and_fwd_flag': 'N', 'PULocationID': 114, 'DOLocationID': 144, 'payment_type': 2, 'fare_amount': 5.8, 'extra': 1.0, 'mta_tax': 0.5, 'tip_amount': 0.0, 'tolls_amount': 0.0, 'improvement_surcharge': 1.0, 'total_amount': 10.8, 'congestion_surcharge': 2.5, 'Airport_fee': 0.0, 'row_id': 'a34f8ea68ef7a3da7d9496c05c506e3d'}
+2026-06-06 05:08:44,648 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-06 05:08:44,648 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-06 05:08:44,648 INFO sqlalchemy.engine.Engine SELECT taxitrips."VendorID" AS "taxitrips_VendorID", taxitrips.tpep_pickup_datetime AS taxitrips_tpep_pickup_datetime, taxitrips.tpep_dropoff_datetime AS taxitrips_tpep_dropoff_datetime, taxitrips.passenger_count AS taxitrips_passenger_count, taxitrips.trip_distance AS taxitrips_trip_distance, taxitrips."RatecodeID" AS "taxitrips_RatecodeID", taxitrips.store_and_fwd_flag AS taxitrips_store_and_fwd_flag, taxitrips."PULocationID" AS "taxitrips_PULocationID", taxitrips."DOLocationID" AS "taxitrips_DOLocationID", taxitrips.payment_type AS taxitrips_payment_type, taxitrips.fare_amount AS taxitrips_fare_amount, taxitrips.extra AS taxitrips_extra, taxitrips.mta_tax AS taxitrips_mta_tax, taxitrips.tip_amount AS taxitrips_tip_amount, taxitrips.tolls_amount AS taxitrips_tolls_amount, taxitrips.improvement_surcharge AS taxitrips_improvement_surcharge, taxitrips.total_amount AS taxitrips_total_amount, taxitrips.congestion_surcharge AS taxitrips_congestion_surcharge, taxitrips."Airport_fee" AS "taxitrips_Airport_fee", taxitrips.row_id AS taxitrips_row_id 
+FROM taxitrips 
+WHERE taxitrips.row_id = %(pk_1)s
+2026-06-06 05:08:44,648 INFO sqlalchemy.engine.Engine [cached since 0.005934s ago] {'pk_1': '03c283fce7aa366d52e7c924ff4edbe3'}
+2026-06-06 05:08:44,649 INFO sqlalchemy.engine.Engine INSERT INTO taxitrips ("VendorID", tpep_pickup_datetime, tpep_dropoff_datetime, passenger_count, trip_distance, "RatecodeID", store_and_fwd_flag, "PULocationID", "DOLocationID", payment_type, fare_amount, extra, mta_tax, tip_amount, tolls_amount, improvement_surcharge, total_amount, congestion_surcharge, "Airport_fee", row_id) VALUES (%(VendorID)s, %(tpep_pickup_datetime)s, %(tpep_dropoff_datetime)s, %(passenger_count)s, %(trip_distance)s, %(RatecodeID)s, %(store_and_fwd_flag)s, %(PULocationID)s, %(DOLocationID)s, %(payment_type)s, %(fare_amount)s, %(extra)s, %(mta_tax)s, %(tip_amount)s, %(tolls_amount)s, %(improvement_surcharge)s, %(total_amount)s, %(congestion_surcharge)s, %(Airport_fee)s, %(row_id)s)
+2026-06-06 05:08:44,649 INFO sqlalchemy.engine.Engine [cached since 0.004483s ago] {'VendorID': 2, 'tpep_pickup_datetime': '2024-11-12 05:55:54', 'tpep_dropoff_datetime': '2024-11-12 06:04:32', 'passenger_count': 1.0, 'trip_distance': 1.73, 'RatecodeID': 1.0, 'store_and_fwd_flag': 'N', 'PULocationID': 142, 'DOLocationID': 162, 'payment_type': 1, 'fare_amount': 11.4, 'extra': 1.0, 'mta_tax': 0.5, 'tip_amount': 3.28, 'tolls_amount': 0.0, 'improvement_surcharge': 1.0, 'total_amount': 19.68, 'congestion_surcharge': 2.5, 'Airport_fee': 0.0, 'row_id': '03c283fce7aa366d52e7c924ff4edbe3'}
+2026-06-06 05:08:44,649 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-06 05:08:44,650 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-06 05:08:44,650 INFO sqlalchemy.engine.Engine SELECT taxitrips."VendorID" AS "taxitrips_VendorID", taxitrips.tpep_pickup_datetime AS taxitrips_tpep_pickup_datetime, taxitrips.tpep_dropoff_datetime AS taxitrips_tpep_dropoff_datetime, taxitrips.passenger_count AS taxitrips_passenger_count, taxitrips.trip_distance AS taxitrips_trip_distance, taxitrips."RatecodeID" AS "taxitrips_RatecodeID", taxitrips.store_and_fwd_flag AS taxitrips_store_and_fwd_flag, taxitrips."PULocationID" AS "taxitrips_PULocationID", taxitrips."DOLocationID" AS "taxitrips_DOLocationID", taxitrips.payment_type AS taxitrips_payment_type, taxitrips.fare_amount AS taxitrips_fare_amount, taxitrips.extra AS taxitrips_extra, taxitrips.mta_tax AS taxitrips_mta_tax, taxitrips.tip_amount AS taxitrips_tip_amount, taxitrips.tolls_amount AS taxitrips_tolls_amount, taxitrips.improvement_surcharge AS taxitrips_improvement_surcharge, taxitrips.total_amount AS taxitrips_total_amount, taxitrips.congestion_surcharge AS taxitrips_congestion_surcharge, taxitrips."Airport_fee" AS "taxitrips_Airport_fee", taxitrips.row_id AS taxitrips_row_id 
+FROM taxitrips 
+WHERE taxitrips.row_id = %(pk_1)s
+2026-06-06 05:08:44,650 INFO sqlalchemy.engine.Engine [cached since 0.007162s ago] {'pk_1': '5a35451f0e1bc85652fd779146dc1624'}
+2026-06-06 05:08:44,650 INFO sqlalchemy.engine.Engine INSERT INTO taxitrips ("VendorID", tpep_pickup_datetime, tpep_dropoff_datetime, passenger_count, trip_distance, "RatecodeID", store_and_fwd_flag, "PULocationID", "DOLocationID", payment_type, fare_amount, extra, mta_tax, tip_amount, tolls_amount, improvement_surcharge, total_amount, congestion_surcharge, "Airport_fee", row_id) VALUES (%(VendorID)s, %(tpep_pickup_datetime)s, %(tpep_dropoff_datetime)s, %(passenger_count)s, %(trip_distance)s, %(RatecodeID)s, %(store_and_fwd_flag)s, %(PULocationID)s, %(DOLocationID)s, %(payment_type)s, %(fare_amount)s, %(extra)s, %(mta_tax)s, %(tip_amount)s, %(tolls_amount)s, %(improvement_surcharge)s, %(total_amount)s, %(congestion_surcharge)s, %(Airport_fee)s, %(row_id)s)
+2026-06-06 05:08:44,650 INFO sqlalchemy.engine.Engine [cached since 0.00576s ago] {'VendorID': 2, 'tpep_pickup_datetime': '2024-11-12 06:17:56', 'tpep_dropoff_datetime': '2024-11-12 06:24:17', 'passenger_count': 1.0, 'trip_distance': 1.39, 'RatecodeID': 1.0, 'store_and_fwd_flag': 'N', 'PULocationID': 236, 'DOLocationID': 238, 'payment_type': 1, 'fare_amount': 9.3, 'extra': 0.0, 'mta_tax': 0.5, 'tip_amount': 2.66, 'tolls_amount': 0.0, 'improvement_surcharge': 1.0, 'total_amount': 15.96, 'congestion_surcharge': 2.5, 'Airport_fee': 0.0, 'row_id': '5a35451f0e1bc85652fd779146dc1624'}
+2026-06-06 05:08:44,650 INFO sqlalchemy.engine.Engine COMMIT
+Inserted rows: 5
+Data insertion completed!
+===== BULK INSERT DONE =====
+1. Health check
+INFO:     127.0.0.1:35650 - "GET / HTTP/1.1" 200 OK
+HTTP/1.1 200 OK
+date: Sat, 06 Jun 2026 02:08:44 GMT
+server: uvicorn
+content-length: 38
+content-type: application/json
+
+{"message":"Taxi Trip API is running"}
+
+2. Register user
+2026-06-06 05:08:44,755 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-06 05:08:44,757 INFO sqlalchemy.engine.Engine SELECT users.username, users.email, users.id, users.password_hash 
+FROM users 
+WHERE users.username = %(username_1)s
+2026-06-06 05:08:44,757 INFO sqlalchemy.engine.Engine [generated in 0.00010s] {'username_1': 'testuser'}
+2026-06-06 05:08:45,028 INFO sqlalchemy.engine.Engine INSERT INTO users (username, email, password_hash) VALUES (%(username)s, %(email)s, %(password_hash)s) RETURNING users.id
+2026-06-06 05:08:45,028 INFO sqlalchemy.engine.Engine [generated in 0.00013s] {'username': 'testuser', 'email': 'testuser@example.com', 'password_hash': '$2b$12$INKDGiK6CJIlu4rpKOA5Nu/bFrhrCH0QtjizMDBs6/URajNSjUs8u'}
+2026-06-06 05:08:45,029 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-06 05:08:45,030 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-06 05:08:45,031 INFO sqlalchemy.engine.Engine SELECT users.username, users.email, users.id, users.password_hash 
+FROM users 
+WHERE users.id = %(pk_1)s
+2026-06-06 05:08:45,031 INFO sqlalchemy.engine.Engine [generated in 0.00009s] {'pk_1': 1}
+INFO:     127.0.0.1:35666 - "POST /register HTTP/1.1" 201 Created
+HTTP/1.1 201 Created
+date: Sat, 06 Jun 2026 02:08:44 GMT
+server: uvicorn
+content-length: 61
+content-type: application/json
+
+{"username":"testuser","email":"testuser@example.com","id":1}2026-06-06 05:08:45,033 INFO sqlalchemy.engine.Engine ROLLBACK
+
+
+3. Login user and get token
+2026-06-06 05:08:45,038 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-06 05:08:45,038 INFO sqlalchemy.engine.Engine SELECT users.username, users.email, users.id, users.password_hash 
+FROM users 
+WHERE users.username = %(username_1)s
+2026-06-06 05:08:45,038 INFO sqlalchemy.engine.Engine [cached since 0.2817s ago] {'username_1': 'testuser'}
+INFO:     127.0.0.1:35682 - "POST /login HTTP/1.1" 200 OK
+2026-06-06 05:08:45,288 INFO sqlalchemy.engine.Engine ROLLBACK
+TOKEN received.
+
+
+4. Public retrieval test - GET /trips without token
+2026-06-06 05:08:45,293 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-06 05:08:45,294 INFO sqlalchemy.engine.Engine SELECT taxitrips."VendorID", taxitrips.tpep_pickup_datetime, taxitrips.tpep_dropoff_datetime, taxitrips.passenger_count, taxitrips.trip_distance, taxitrips."RatecodeID", taxitrips.store_and_fwd_flag, taxitrips."PULocationID", taxitrips."DOLocationID", taxitrips.payment_type, taxitrips.fare_amount, taxitrips.extra, taxitrips.mta_tax, taxitrips.tip_amount, taxitrips.tolls_amount, taxitrips.improvement_surcharge, taxitrips.total_amount, taxitrips.congestion_surcharge, taxitrips."Airport_fee", taxitrips.row_id 
+FROM taxitrips ORDER BY taxitrips.tpep_pickup_datetime DESC 
+ LIMIT %(param_1)s
+2026-06-06 05:08:45,294 INFO sqlalchemy.engine.Engine [generated in 0.00009s] {'param_1': 5}
+INFO:     127.0.0.1:35690 - "GET /trips?limit=5 HTTP/1.1" 200 OK
+2026-06-06 05:08:45,297 INFO sqlalchemy.engine.Engine ROLLBACK
+HTTP/1.1 200 OK
+date: Sat, 06 Jun 2026 02:08:44 GMT
+server: uvicorn
+content-length: 2326
+content-type: application/json
+
+[{"VendorID":2,"tpep_pickup_datetime":"2024-11-12T06:17:56","tpep_dropoff_datetime":"2024-11-12T06:24:17","passenger_count":1.0,"trip_distance":1.39,"RatecodeID":1.0,"store_and_fwd_flag":"N","PULocationID":236,"DOLocationID":238,"payment_type":1,"fare_amount":9.3,"extra":0.0,"mta_tax":0.5,"tip_amount":2.66,"tolls_amount":0.0,"improvement_surcharge":1.0,"total_amount":15.96,"congestion_surcharge":2.5,"Airport_fee":0.0,"row_id":"5a35451f0e1bc85652fd779146dc1624"},{"VendorID":2,"tpep_pickup_datetime":"2024-11-12T05:55:54","tpep_dropoff_datetime":"2024-11-12T06:04:32","passenger_count":1.0,"trip_distance":1.73,"RatecodeID":1.0,"store_and_fwd_flag":"N","PULocationID":142,"DOLocationID":162,"payment_type":1,"fare_amount":11.4,"extra":1.0,"mta_tax":0.5,"tip_amount":3.28,"tolls_amount":0.0,"improvement_surcharge":1.0,"total_amount":19.68,"congestion_surcharge":2.5,"Airport_fee":0.0,"row_id":"03c283fce7aa366d52e7c924ff4edbe3"},{"VendorID":2,"tpep_pickup_datetime":"2024-11-11T03:17:30","tpep_dropoff_datetime":"2024-11-12T02:42:53","passenger_count":3.0,"trip_distance":0.66,"RatecodeID":1.0,"store_and_fwd_flag":"N","PULocationID":114,"DOLocationID":144,"payment_type":2,"fare_amount":5.8,"extra":1.0,"mta_tax":0.5,"tip_amount":0.0,"tolls_amount":0.0,"improvement_surcharge":1.0,"total_amount":10.8,"congestion_surcharge":2.5,"Airport_fee":0.0,"row_id":"a34f8ea68ef7a3da7d9496c05c506e3d"},{"VendorID":2,"tpep_pickup_datetime":"2024-11-11T00:53:22","tpep_dropoff_datetime":"2024-11-12T00:29:47","passenger_count":1.0,"trip_distance":3.93,"RatecodeID":1.0,"store_and_fwd_flag":"N","PULocationID":142,"DOLocationID":152,"payment_type":1,"fare_amount":19.8,"extra":1.0,"mta_tax":0.5,"tip_amount":3.72,"tolls_amount":0.0,"improvement_surcharge":1.0,"total_amount":28.52,"congestion_surcharge":2.5,"Airport_fee":0.0,"row_id":"7e0d0079c192ee88e7e197462b003aef"},{"VendorID":2,"tpep_pickup_datetime":"2024-11-11T00:52:01","tpep_dropoff_datetime":"2024-11-12T00:23:59","passenger_count":2.0,"trip_distance":1.28,"RatecodeID":1.0,"store_and_fwd_flag":"N","PULocationID":249,"DOLocationID":144,"payment_type":1,"fare_amount":9.3,"extra":1.0,"mta_tax":0.5,"tip_amount":0.72,"tolls_amount":0.0,"improvement_surcharge":1.0,"total_amount":15.02,"congestion_surcharge":2.5,"Airport_fee":0.0,"row_id":"2b7fe92dc4905238f0d4cceb82114e07"}]
+
+5. Security test - POST /trips without token should fail
+INFO:     127.0.0.1:35706 - "POST /trips HTTP/1.1" 401 Unauthorized
+HTTP/1.1 401 Unauthorized
+date: Sat, 06 Jun 2026 02:08:44 GMT
+server: uvicorn
+www-authenticate: Bearer
+content-length: 30
+content-type: application/json
+
+{"detail":"Not authenticated"}
+
+6. Create trip with token
+2026-06-06 05:08:45,306 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-06 05:08:45,306 INFO sqlalchemy.engine.Engine SELECT users.username, users.email, users.id, users.password_hash 
+FROM users 
+WHERE users.username = %(username_1)s
+2026-06-06 05:08:45,306 INFO sqlalchemy.engine.Engine [cached since 0.5498s ago] {'username_1': 'testuser'}
+2026-06-06 05:08:45,309 INFO sqlalchemy.engine.Engine SELECT taxitrips."VendorID" AS "taxitrips_VendorID", taxitrips.tpep_pickup_datetime AS taxitrips_tpep_pickup_datetime, taxitrips.tpep_dropoff_datetime AS taxitrips_tpep_dropoff_datetime, taxitrips.passenger_count AS taxitrips_passenger_count, taxitrips.trip_distance AS taxitrips_trip_distance, taxitrips."RatecodeID" AS "taxitrips_RatecodeID", taxitrips.store_and_fwd_flag AS taxitrips_store_and_fwd_flag, taxitrips."PULocationID" AS "taxitrips_PULocationID", taxitrips."DOLocationID" AS "taxitrips_DOLocationID", taxitrips.payment_type AS taxitrips_payment_type, taxitrips.fare_amount AS taxitrips_fare_amount, taxitrips.extra AS taxitrips_extra, taxitrips.mta_tax AS taxitrips_mta_tax, taxitrips.tip_amount AS taxitrips_tip_amount, taxitrips.tolls_amount AS taxitrips_tolls_amount, taxitrips.improvement_surcharge AS taxitrips_improvement_surcharge, taxitrips.total_amount AS taxitrips_total_amount, taxitrips.congestion_surcharge AS taxitrips_congestion_surcharge, taxitrips."Airport_fee" AS "taxitrips_Airport_fee", taxitrips.row_id AS taxitrips_row_id 
+FROM taxitrips 
+WHERE taxitrips.row_id = %(pk_1)s
+2026-06-06 05:08:45,309 INFO sqlalchemy.engine.Engine [generated in 0.00009s] {'pk_1': '8127076e6adac9533eaf535189c81d1c'}
+2026-06-06 05:08:45,310 INFO sqlalchemy.engine.Engine INSERT INTO taxitrips ("VendorID", tpep_pickup_datetime, tpep_dropoff_datetime, passenger_count, trip_distance, "RatecodeID", store_and_fwd_flag, "PULocationID", "DOLocationID", payment_type, fare_amount, extra, mta_tax, tip_amount, tolls_amount, improvement_surcharge, total_amount, congestion_surcharge, "Airport_fee", row_id) VALUES (%(VendorID)s, %(tpep_pickup_datetime)s, %(tpep_dropoff_datetime)s, %(passenger_count)s, %(trip_distance)s, %(RatecodeID)s, %(store_and_fwd_flag)s, %(PULocationID)s, %(DOLocationID)s, %(payment_type)s, %(fare_amount)s, %(extra)s, %(mta_tax)s, %(tip_amount)s, %(tolls_amount)s, %(improvement_surcharge)s, %(total_amount)s, %(congestion_surcharge)s, %(Airport_fee)s, %(row_id)s)
+2026-06-06 05:08:45,310 INFO sqlalchemy.engine.Engine [generated in 0.00010s] {'VendorID': 1, 'tpep_pickup_datetime': datetime.datetime(2024, 1, 1, 10, 0), 'tpep_dropoff_datetime': datetime.datetime(2024, 1, 1, 10, 20), 'passenger_count': 1.0, 'trip_distance': 3.5, 'RatecodeID': 1.0, 'store_and_fwd_flag': 'N', 'PULocationID': 100, 'DOLocationID': 200, 'payment_type': 1, 'fare_amount': 15.5, 'extra': 1.0, 'mta_tax': 0.5, 'tip_amount': 2.0, 'tolls_amount': 0.0, 'improvement_surcharge': 0.3, 'total_amount': 19.3, 'congestion_surcharge': 2.5, 'Airport_fee': 0.0, 'row_id': '8127076e6adac9533eaf535189c81d1c'}
+2026-06-06 05:08:45,311 INFO sqlalchemy.engine.Engine COMMIT
+2026-06-06 05:08:45,312 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-06 05:08:45,312 INFO sqlalchemy.engine.Engine SELECT taxitrips."VendorID", taxitrips.tpep_pickup_datetime, taxitrips.tpep_dropoff_datetime, taxitrips.passenger_count, taxitrips.trip_distance, taxitrips."RatecodeID", taxitrips.store_and_fwd_flag, taxitrips."PULocationID", taxitrips."DOLocationID", taxitrips.payment_type, taxitrips.fare_amount, taxitrips.extra, taxitrips.mta_tax, taxitrips.tip_amount, taxitrips.tolls_amount, taxitrips.improvement_surcharge, taxitrips.total_amount, taxitrips.congestion_surcharge, taxitrips."Airport_fee", taxitrips.row_id 
+FROM taxitrips 
+WHERE taxitrips.row_id = %(pk_1)s
+2026-06-06 05:08:45,312 INFO sqlalchemy.engine.Engine [generated in 0.00007s] {'pk_1': '8127076e6adac9533eaf535189c81d1c'}
+INFO:     127.0.0.1:35710 - "POST /trips HTTP/1.1" 200 OK
+HTTP/1.1 200 OK
+date: Sat, 06 Jun 2026 02:08:44 GMT
+server: uvicorn
+content-length: 83
+content-type: application/json
+
+{"message":"Trip created successfully","row_id":"8127076e6adac9533eaf535189c81d1c"}2026-06-06 05:08:45,313 INFO sqlalchemy.engine.Engine ROLLBACK
+
+
+7. Get trips after authenticated creation
+2026-06-06 05:08:45,318 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-06 05:08:45,318 INFO sqlalchemy.engine.Engine SELECT taxitrips."VendorID", taxitrips.tpep_pickup_datetime, taxitrips.tpep_dropoff_datetime, taxitrips.passenger_count, taxitrips.trip_distance, taxitrips."RatecodeID", taxitrips.store_and_fwd_flag, taxitrips."PULocationID", taxitrips."DOLocationID", taxitrips.payment_type, taxitrips.fare_amount, taxitrips.extra, taxitrips.mta_tax, taxitrips.tip_amount, taxitrips.tolls_amount, taxitrips.improvement_surcharge, taxitrips.total_amount, taxitrips.congestion_surcharge, taxitrips."Airport_fee", taxitrips.row_id 
+FROM taxitrips ORDER BY taxitrips.tpep_pickup_datetime DESC 
+ LIMIT %(param_1)s
+2026-06-06 05:08:45,318 INFO sqlalchemy.engine.Engine [cached since 0.02407s ago] {'param_1': 10}
+INFO:     127.0.0.1:35720 - "GET /trips?limit=10 HTTP/1.1" 200 OK
+HTTP/1.1 200 OK
+date: Sat, 06 Jun 2026 02:08:44 GMT
+server: uvicorn
+content-length: 2789
+content-type: application/json
+
+[{"VendorID":2,"tpep_pickup_datetime":"2024-11-12T06:17:56","tpep_dropoff_datetime":"2024-11-12T06:24:17","passenger_count":1.0,"trip_distance":1.39,"RatecodeID":1.0,"store_and_fwd_flag":"N","PULocationID":236,"DOLocationID":238,"payment_type":1,"fare_amount":9.3,"extra":0.0,"mta_tax":0.5,"tip_amount":2.66,"tolls_amount":0.0,"improvement_surcharge":1.0,"total_amount":15.96,"congestion_surcharge":2.5,"Airport_fee":0.0,"row_id":"5a35451f0e1bc85652fd779146dc1624"},{"VendorID":2,"tpep_pickup_datetime":"2024-11-12T05:55:54","tpep_dropoff_datetime":"2024-11-12T06:04:32","passenger_count":1.0,"trip_distance":1.73,"RatecodeID":1.0,"store_and_fwd_flag":"N","PULocationID":142,"DOLocationID":162,"payment_type":1,"fare_amount":11.4,"extra":1.0,"mta_tax":0.5,"tip_amount":3.28,"tolls_amount":0.0,"improvement_surcharge":1.0,"total_amount":19.68,"congestion_surcharge":2.5,"Airport_fee":0.0,"row_id":"03c283fce7aa366d52e7c924ff4edbe3"},{"VendorID":2,"tpep_pickup_datetime":"2024-11-11T03:17:30","tpep_dropoff_datetime":"2024-11-12T02:42:53","passenger_count":3.0,"trip_distance":0.66,"RatecodeID":1.0,"store_and_fwd_flag":"N","PULocationID":114,"DOLocationID":144,"payment_type":2,"fare_amount":5.8,"extra":1.0,"mta_tax":0.5,"tip_amount":0.0,"tolls_amount":0.0,"improvement_surcharge":1.0,"total_amount":10.8,"congestion_surcharge":2.5,"Airport_fee":0.0,"row_id":"a34f8ea68ef7a3da7d9496c05c506e3d"},{"VendorID":2,"tpep_pickup_datetime":"2024-11-11T00:53:22","tpep_dropoff_datetime":"2024-11-12T00:29:47","passenger_count":1.0,"trip_distance":3.93,"RatecodeID":1.0,"store_and_fwd_flag":"N","PULocationID":142,"DOLocationID":152,"payment_type":1,"fare_amount":19.8,"extra":1.0,"mta_tax":0.5,"tip_amount":3.72,"tolls_amount":0.0,"improvement_surcharge":1.0,"total_amount":28.52,"congestion_surcharge":2.5,"Airport_fee":0.0,"row_id":"7e0d0079c192ee88e7e197462b003aef"},{"VendorID":2,"tpep_pickup_datetime":"2024-11-11T00:52:01","tpep_dropoff_datetime":"2024-11-12T00:23:59","passenger_count":2.0,"trip_distance":1.28,"RatecodeID":1.0,"store_and_fwd_flag":"N","PULocationID":249,"DOLocationID":144,"payment_type":1,"fare_amount":9.3,"extra":1.0,"mta_tax":0.5,"tip_amount":0.72,"tolls_amount":0.0,"improvement_surcharge":1.0,"total_amount":15.02,"congestion_surcharge":2.5,"Airport_fee":0.0,"row_id":"2b7fe92dc4905238f0d4cceb82114e07"},{"VendorID":1,"tpep_pickup_datetime":"2024-01-01T10:00:00","tpep_dropoff_datetime":"2024-01-01T10:20:00","passenger_count":1.0,"trip_distance":3.5,"RatecodeID":1.0,"store_and_fwd_flag":"N","PULocationID":100,"DOLocationID":200,"payment_type":1,"fare_amount":15.5,"extra":1.0,"mta_tax":0.5,"tip_amount":2.0,"tolls_amount":0.0,"improvement_surcharge":0.3,"total_amount":19.3,"congestion_surcharge":2.5,"Airport_fee":0.0,"row_id":"8127076e6adac9533eaf535189c81d1c"}]2026-06-06 05:08:45,319 INFO sqlalchemy.engine.Engine ROLLBACK
+
+
+8. Validation test - invalid trip body
+2026-06-06 05:08:45,325 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-06 05:08:45,325 INFO sqlalchemy.engine.Engine SELECT users.username, users.email, users.id, users.password_hash 
+FROM users 
+WHERE users.username = %(username_1)s
+2026-06-06 05:08:45,325 INFO sqlalchemy.engine.Engine [cached since 0.5683s ago] {'username_1': 'testuser'}
+2026-06-06 05:08:45,325 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:35736 - "POST /trips HTTP/1.1" 422 Unprocessable Entity
+HTTP/1.1 422 Unprocessable Entity
+date: Sat, 06 Jun 2026 02:08:44 GMT
+server: uvicorn
+content-length: 2183
+content-type: application/json
+
+{"detail":[{"type":"missing","loc":["body","VendorID"],"msg":"Field required","input":{"trip_distance":"wrong_type"}},{"type":"missing","loc":["body","tpep_pickup_datetime"],"msg":"Field required","input":{"trip_distance":"wrong_type"}},{"type":"missing","loc":["body","tpep_dropoff_datetime"],"msg":"Field required","input":{"trip_distance":"wrong_type"}},{"type":"missing","loc":["body","passenger_count"],"msg":"Field required","input":{"trip_distance":"wrong_type"}},{"type":"float_parsing","loc":["body","trip_distance"],"msg":"Input should be a valid number, unable to parse string as a number","input":"wrong_type"},{"type":"missing","loc":["body","RatecodeID"],"msg":"Field required","input":{"trip_distance":"wrong_type"}},{"type":"missing","loc":["body","store_and_fwd_flag"],"msg":"Field required","input":{"trip_distance":"wrong_type"}},{"type":"missing","loc":["body","PULocationID"],"msg":"Field required","input":{"trip_distance":"wrong_type"}},{"type":"missing","loc":["body","DOLocationID"],"msg":"Field required","input":{"trip_distance":"wrong_type"}},{"type":"missing","loc":["body","payment_type"],"msg":"Field required","input":{"trip_distance":"wrong_type"}},{"type":"missing","loc":["body","fare_amount"],"msg":"Field required","input":{"trip_distance":"wrong_type"}},{"type":"missing","loc":["body","extra"],"msg":"Field required","input":{"trip_distance":"wrong_type"}},{"type":"missing","loc":["body","mta_tax"],"msg":"Field required","input":{"trip_distance":"wrong_type"}},{"type":"missing","loc":["body","tip_amount"],"msg":"Field required","input":{"trip_distance":"wrong_type"}},{"type":"missing","loc":["body","tolls_amount"],"msg":"Field required","input":{"trip_distance":"wrong_type"}},{"type":"missing","loc":["body","improvement_surcharge"],"msg":"Field required","input":{"trip_distance":"wrong_type"}},{"type":"missing","loc":["body","total_amount"],"msg":"Field required","input":{"trip_distance":"wrong_type"}},{"type":"missing","loc":["body","congestion_surcharge"],"msg":"Field required","input":{"trip_distance":"wrong_type"}},{"type":"missing","loc":["body","Airport_fee"],"msg":"Field required","input":{"trip_distance":"wrong_type"}}]}
+
+9. Error handling - trip not found
+2026-06-06 05:08:45,338 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-06 05:08:45,338 INFO sqlalchemy.engine.Engine SELECT users.username, users.email, users.id, users.password_hash 
+FROM users 
+WHERE users.username = %(username_1)s
+2026-06-06 05:08:45,338 INFO sqlalchemy.engine.Engine [cached since 0.5812s ago] {'username_1': 'testuser'}
+2026-06-06 05:08:45,338 INFO sqlalchemy.engine.Engine SELECT taxitrips."VendorID" AS "taxitrips_VendorID", taxitrips.tpep_pickup_datetime AS taxitrips_tpep_pickup_datetime, taxitrips.tpep_dropoff_datetime AS taxitrips_tpep_dropoff_datetime, taxitrips.passenger_count AS taxitrips_passenger_count, taxitrips.trip_distance AS taxitrips_trip_distance, taxitrips."RatecodeID" AS "taxitrips_RatecodeID", taxitrips.store_and_fwd_flag AS taxitrips_store_and_fwd_flag, taxitrips."PULocationID" AS "taxitrips_PULocationID", taxitrips."DOLocationID" AS "taxitrips_DOLocationID", taxitrips.payment_type AS taxitrips_payment_type, taxitrips.fare_amount AS taxitrips_fare_amount, taxitrips.extra AS taxitrips_extra, taxitrips.mta_tax AS taxitrips_mta_tax, taxitrips.tip_amount AS taxitrips_tip_amount, taxitrips.tolls_amount AS taxitrips_tolls_amount, taxitrips.improvement_surcharge AS taxitrips_improvement_surcharge, taxitrips.total_amount AS taxitrips_total_amount, taxitrips.congestion_surcharge AS taxitrips_congestion_surcharge, taxitrips."Airport_fee" AS "taxitrips_Airport_fee", taxitrips.row_id AS taxitrips_row_id 
+FROM taxitrips 
+WHERE taxitrips.row_id = %(pk_1)s
+2026-06-06 05:08:45,338 INFO sqlalchemy.engine.Engine [cached since 0.02993s ago] {'pk_1': '999999'}
+2026-06-06 05:08:45,339 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:35748 - "GET /trips/999999 HTTP/1.1" 404 Not Found
+HTTP/1.1 404 Not Found
+date: Sat, 06 Jun 2026 02:08:44 GMT
+server: uvicorn
+content-length: 27
+content-type: application/json
+
+{"detail":"Trip not found"}
+
+10. Performance sanity check - public retrieval
+2026-06-06 05:08:45,343 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-06-06 05:08:45,343 INFO sqlalchemy.engine.Engine SELECT taxitrips."VendorID", taxitrips.tpep_pickup_datetime, taxitrips.tpep_dropoff_datetime, taxitrips.passenger_count, taxitrips.trip_distance, taxitrips."RatecodeID", taxitrips.store_and_fwd_flag, taxitrips."PULocationID", taxitrips."DOLocationID", taxitrips.payment_type, taxitrips.fare_amount, taxitrips.extra, taxitrips.mta_tax, taxitrips.tip_amount, taxitrips.tolls_amount, taxitrips.improvement_surcharge, taxitrips.total_amount, taxitrips.congestion_surcharge, taxitrips."Airport_fee", taxitrips.row_id 
+FROM taxitrips ORDER BY taxitrips.tpep_pickup_datetime DESC 
+ LIMIT %(param_1)s
+2026-06-06 05:08:45,343 INFO sqlalchemy.engine.Engine [cached since 0.04925s ago] {'param_1': 10}
+INFO:     127.0.0.1:35762 - "GET /trips?limit=10 HTTP/1.1" 200 OK
+2026-06-06 05:08:45,345 INFO sqlalchemy.engine.Engine ROLLBACK
+
+real    0m0.006s
+user    0m0.002s
+sys     0m0.001s
+===== ALL DONE =====
