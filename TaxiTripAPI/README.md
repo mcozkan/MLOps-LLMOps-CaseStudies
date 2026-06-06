@@ -33,6 +33,9 @@ Taxi Trip API is a FastAPI + PostgreSQL application developed as part of an MLOp
 ```text
 TaxiTripAPI/
 ├── app/
+├── .venv/
+├── .dvc/
+│
 │   ├── main.py
 │   ├── database.py
 │   ├── models.py
@@ -42,7 +45,9 @@ TaxiTripAPI/
 │   │   └── trips.py
 │   └── utils/
 │       └── bulk_insert.py
+│
 ├── data/raw/taxi-trip-data.csv
+│
 ├── scripts/
 │   ├── db.sh
 │   ├── fastapi.sh
@@ -50,25 +55,75 @@ TaxiTripAPI/
 │   ├── test_api.sh
 │   ├── run-all.sh
 │   └── reset-all.sh
+│
 ├── reports/
 │   ├──screenshots
 │   ├──test_report.txt
 │
-├── docker-compose.yml
-├── .env
+├──docker-compose.yml
+├──pyproject.toml
+├──uv.lock
+├──.python-version
+├──.env
 └── README.md
 ```
 
-## Environment Variables (.env)
+## Installation
 
-Create .env in the project root:
+1. Clone the repository:
 
 ```text
-SQLALCHEMY_DATABASE_URL=postgresql://postgres:postgres@localhost:5433/taxitrip_db
-SECRET_KEY=your_secret_key
-ALGORITHM=HS256
-ACCESS_TOKEN_EXPIRE_MINUTES=30
+   git clone <repository_url>
+   cd TaxiTripAPI
 ```
+
+2. Create and activate a virtual environment:
+
+```text
+   python -m venv .venv
+   source .venv/bin/activate      # Linux/Mac
+   .venv\Scripts\activate         # Windows
+
+```
+
+3. Install project dependencies:
+
+```text
+   pip install uv
+   uv sync
+```
+
+4. Create a .env file in the project root:
+
+```text
+   SQLALCHEMY_DATABASE_URL=postgresql://postgres:postgres@localhost:5433/taxitrip_db
+   SECRET_KEY=your_secret_key
+   ALGORITHM=HS256
+   ACCESS_TOKEN_EXPIRE_MINUTES=30
+```
+
+5. Pull the dataset using DVC:
+
+```bash
+dvc pull
+```
+
+## Data Version Control (DVC)
+
+Large data files are tracked through DVC while keeping the Git repository lightweight.
+Dataset location:
+
+```text
+data/raw/taxi-trip-data.csv
+```
+
+Common commands:
+
+```bash
+dvc pull      # Download tracked data
+dvc status    # Check dataset status
+```
+
 
 ## Run 
 
