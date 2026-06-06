@@ -170,15 +170,15 @@ reports/test_report.txt
 
 - Successful Register:
 
-<img src="reports/screenshots/2_register_new_user.png" height ="400" width="600">
+<img src="reports/screenshots/2_register_new_user.png" height ="600" width="800">
 
 - Duplicate User Name:
 
-<img src="reports/screenshots/3_register_usernameexists.png" height ="400" width="600">
+<img src="reports/screenshots/3_register_usernameexists.png" height ="600" width="800">
 
 - Login & JWT Token:
 
-<img src="reports/screenshots/5_login_successfulwithMin username.png" height ="400" width="600">
+<img src="reports/screenshots/5_login_successfulwithMin username.png" height ="600" width="800">
 
 
 
