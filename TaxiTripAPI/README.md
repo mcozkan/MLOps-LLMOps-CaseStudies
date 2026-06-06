@@ -180,6 +180,8 @@ reports/test_report.txt
 
 <img src="reports/screenshots/2_register_new_user.png" height ="400" width="600">
 
+![Register Success](reports/screenshots/2_register_new_user.png)
+
 
 - Duplicate User Name:
 
