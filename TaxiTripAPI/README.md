@@ -4,6 +4,19 @@ Overview
 
 Taxi Trip API is a FastAPI + PostgreSQL application developed as part of an MLOps/LLMOps Bootcamp assignment. The project provides user authentication, taxi trip management, CSV dataset import and automated integration testing.
 
+## Technologies
+
+- Python 3.12
+- FastAPI
+- SQLModel
+- PostgreSQL
+- Docker Compose
+- JWT Authentication
+- Passlib (bcrypt)
+- Uvicorn
+- Pydantic
+- Bash
+
 ## Features
 
 - User registration
@@ -39,7 +52,10 @@ TaxiTripAPI/
 │   ├── test_api.sh
 │   ├── run-all.sh
 │   └── reset-all.sh
-├── reports/test_report.txt
+├── reports/
+│   ├──screenshots
+│   ├──test_report.txt
+│
 ├── docker-compose.yml
 ├── .env
 └── README.md
@@ -208,6 +224,11 @@ reports/test_report.txt
 <img src="reports/screenshots/5_login_successfulwithMin username.png" height ="400" width="600">
 </p>
 
+You may find more screenshots on:
+
+```text
+reports/screenshots/
+```
 
 ## Swagger Docs:
 
@@ -224,3 +245,21 @@ http://127.0.0.1:8001/docs
 - Passwords are hashed with bcrypt.
 - Input validation is handled with SQLModel/Pydantic schemas.
 - CSV records are inserted one by one.
+
+## Future Improvements
+
+- Bulk CSV insertion optimization
+- Dockerized API deployment
+- Pytest-based automated testing
+- CI/CD pipeline integration
+- API versioning
+- Pagination improvements
+
+## Author
+
+Murat Çağrı Özkan
+
+GitHub:
+https://github.com/...
+
+Developed as part of the VBO MLOps / LLMOps Bootcamp.
