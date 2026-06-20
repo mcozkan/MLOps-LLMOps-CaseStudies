@@ -34,6 +34,7 @@ Invalid inputs raise clear exceptions. For example, a discount below `0` or abov
 ├── main.py
 ├── Dockerfile
 ├── requirements.txt
+├── pyproject.toml
 ├── .gitignore
 └── README.md
 ```
@@ -43,8 +44,8 @@ Invalid inputs raise clear exceptions. For example, a discount below `0` or abov
 Create and activate a virtual environment:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
+python3.12 -m venv .venv
+source venv/bin/activate
 ```
 
 Install dependencies:
@@ -121,7 +122,7 @@ SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
 
 ## Required Gitea secret
 
-Create a Gitea Personal Access Token with `write:package` permission.
+Create a Gitea Personal Access Token with the `write:package` scope.
 
 Then add it to the repository:
 
@@ -151,10 +152,10 @@ The workflow builds and pushes this image name:
 host.docker.internal:3000/<owner>/<repo>
 ```
 
-For example, if your Gitea username is `murat` and repo name is `price-helper`, the image will be:
+For example, if your Gitea username is <repository_owner> and repo name is <repository_name>, the image will be:
 
 ```text
-host.docker.internal:3000/murat/price-helper
+host.docker.internal:3000/<repository_owner>/<repository_name>
 ```
 
 ## How to verify branch behaviour
@@ -235,6 +236,7 @@ Run it:
 ```bash
 docker run --rm host.docker.internal:3000/<owner>/<repo>:<short-sha>
 ```
+The container should exit with status code 0.
 
 Expected output:
 
@@ -252,6 +254,21 @@ Add these screenshots to your homework submission:
 2. Successful pipeline run on `main`. All three jobs and push steps must be green.
 3. Gitea Packages tab showing both `latest` and `<short-sha>` tags.
 4. Terminal output showing successful `docker pull host.docker.internal:3000/<owner>/<repo>:<short-sha>`.
+
+
+## Viewing pipeline runs in Gitea
+
+Open the repository and navigate to:
+Repository → Actions
+Select the workflow named:
+Week 10 CI/CD Pipeline
+Each run displays the status of the following jobs:
+
+- lint
+- test
+- build-and-push
+
+Green indicates success, red indicates failure, and grey indicates skipped steps.
 
 ## Notes
 
