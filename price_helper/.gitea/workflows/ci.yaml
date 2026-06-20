@@ -1,0 +1,89 @@
+name: Week 10 CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Ruff linter
+        run: ruff check .
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run pytest
+        run: pytest -q
+
+  build-and-push:
+    runs-on: ubuntu-latest
+    needs:
+      - lint
+      - test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compute image metadata
+        id: meta
+        run: |
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          IMAGE_NAME="host.docker.internal:3000/${{ github.repository }}"
+          echo "SHORT_SHA=$SHORT_SHA" >> "$GITHUB_ENV"
+          echo "IMAGE_NAME=$IMAGE_NAME" >> "$GITHUB_ENV"
+          echo "Short SHA: $SHORT_SHA"
+          echo "Image name: $IMAGE_NAME"
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t "$IMAGE_NAME:latest" \
+            -t "$IMAGE_NAME:$SHORT_SHA" \
+            .
+
+      - name: Run Docker image smoke test
+        run: docker run --rm "$IMAGE_NAME:$SHORT_SHA"
+
+      - name: Login to Gitea container registry
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo "${{ secrets.GITEATOKEN }}" | docker login host.docker.internal:3000 \
+            -u "${{ github.repository_owner }}" \
+            --password-stdin
+
+      - name: Push Docker image latest tag
+        if: github.ref == 'refs/heads/main'
+        run: docker push "$IMAGE_NAME:latest"
+
+      - name: Push Docker image short SHA tag
+        if: github.ref == 'refs/heads/main'
+        run: docker push "$IMAGE_NAME:$SHORT_SHA"
