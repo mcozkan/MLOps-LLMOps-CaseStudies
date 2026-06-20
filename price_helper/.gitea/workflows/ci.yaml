@@ -2,8 +2,7 @@ name: Week 10 CI/CD Pipeline
 
 on:
   push:
-    branches:
-      - "**"
+
 
 jobs:
   lint:
@@ -57,7 +56,7 @@ jobs:
         id: meta
         run: |
           SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
-          IMAGE_NAME="host.docker.internal:3000/${{ github.repository }}"
+          IMAGE_NAME=$(echo "host.docker.internal:3000/${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           echo "SHORT_SHA=$SHORT_SHA" >> "$GITHUB_ENV"
           echo "IMAGE_NAME=$IMAGE_NAME" >> "$GITHUB_ENV"
           echo "Short SHA: $SHORT_SHA"
