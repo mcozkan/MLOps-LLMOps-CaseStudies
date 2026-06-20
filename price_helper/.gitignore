@@ -1,8 +1,16 @@
-__pycache__/
-.pytest_cache/
-.ruff_cache/
+cat > .gitignore <<'EOF'
+venv/
 .venv/
-.env
+
+__pycache__/
 *.pyc
 
+.pytest_cache/
+.ruff_cache/
+
 .DS_Store
+
+gitea/
+docker-compose.yml
+screenshots/
+EOF

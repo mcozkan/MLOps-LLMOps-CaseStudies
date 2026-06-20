@@ -1,20 +1,17 @@
 name: Week 10 CI/CD Pipeline
 
-on:
-  push:
-
+on: [push]
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
+        run: |
+          apt-get update
+          apt-get install -y git
+          git clone http://172.17.0.1:3000/${{ github.repository }}.git .
+          git checkout ${{ github.sha }}
 
       - name: Install dependencies
         run: |
@@ -28,12 +25,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
+        run: |
+          apt-get update
+          apt-get install -y git
+          git clone http://172.17.0.1:3000/${{ github.repository }}.git .
+          git checkout ${{ github.sha }}
 
       - name: Install dependencies
         run: |
@@ -50,13 +46,16 @@ jobs:
       - test
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        run: |
+          apt-get update
+          apt-get install -y git docker.io
+          git clone http://172.17.0.1:3000/${{ github.repository }}.git .
+          git checkout ${{ github.sha }}
 
       - name: Compute image metadata
-        id: meta
         run: |
           SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
-          IMAGE_NAME=$(echo "host.docker.internal:3000/${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          IMAGE_NAME=$(echo "172.17.0.1:3000/${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           echo "SHORT_SHA=$SHORT_SHA" >> "$GITHUB_ENV"
           echo "IMAGE_NAME=$IMAGE_NAME" >> "$GITHUB_ENV"
           echo "Short SHA: $SHORT_SHA"
@@ -75,8 +74,8 @@ jobs:
       - name: Login to Gitea container registry
         if: github.ref == 'refs/heads/main'
         run: |
-          echo "${{ secrets.GITEATOKEN }}" | docker login host.docker.internal:3000 \
-            -u "${{ github.repository_owner }}" \
+          echo "${{ secrets.GITEATOKEN }}" | docker login http://172.17.0.1:3000 \
+            -u "mcozkan" \
             --password-stdin
 
       - name: Push Docker image latest tag
